@@ -1,0 +1,262 @@
+/* style.css - Final Version with Performance Metric Styling */
+
+/* Basic Reset & Font */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif; /* Using Google Font */
+    background-color: #f0f2f5; /* Lighter gray background */
+    color: #333;
+    line-height: 1.6;
+    padding: 1rem; /* Add padding for small screens */
+}
+
+/* Main Container */
+.container {
+    max-width: 700px; /* Limit width */
+    margin: 2rem auto; /* Center container with top/bottom margin */
+    background-color: #ffffff; /* White background for content */
+    padding: 2rem 2.5rem; /* Generous padding */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+    text-align: center; /* Center text by default within container */
+}
+
+/* Headings and Text */
+h1 {
+    font-weight: 700;
+    color: #1c1e21; /* Darker color for main title */
+    margin-bottom: 0.75rem;
+}
+
+h2 {
+    font-weight: 500;
+    color: #4b4f56;
+    margin-top: 1.75rem; /* More space above section titles */
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #e4e6eb; /* Subtle separator line */
+    padding-bottom: 0.5rem;
+    text-align: left; /* Align section headers left */
+}
+
+.instructions {
+    color: #606770;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+/* Media Elements (Video and Canvas) */
+.media-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    justify-content: center; /* Center items */
+    gap: 2rem; /* Space between video and canvas */
+    margin-bottom: 1.5rem;
+}
+
+.media-item {
+    text-align: center; /* Center h2 within item */
+}
+
+.media-item h2 {
+    text-align: center; /* Override default left alignment */
+    border-bottom: none; /* Remove separator for these */
+     margin-bottom: 0.5rem;
+}
+
+
+#webcamFeed,
+#preprocessedPreviewCanvas {
+    display: block;
+    margin: 0 auto 0.5rem auto; /* Center block elements */
+    border: 1px solid #dce0e5;
+    border-radius: 8px; /* Rounded corners */
+    background-color: #e9ecef; /* Placeholder color */
+}
+
+#webcamFeed {
+    transform: scaleX(-1); /* Keep the flip */
+    max-width: 100%; /* Make responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+#preprocessedPreviewCanvas {
+    border-color: #adb5bd; /* Slightly darker border for distinction */
+}
+
+
+/* Button Styling */
+.button-container {
+    margin: 1.5rem 0; /* Space around button */
+}
+
+#predictButton {
+    background-color: #007bff; /* Primary blue */
+    color: #ffffff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    gap: 8px; /* Space between icon and text */
+}
+
+#predictButton:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+#predictButton:active:not(:disabled) {
+    transform: scale(0.98); /* Slight shrink on click */
+}
+
+#predictButton:disabled {
+    background-color: #6c757d; /* Gray when disabled */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.button-icon {
+    font-size: 1.2em; /* Slightly larger icon */
+}
+
+/* Status Area Styling */
+#status {
+    margin: 1.5rem auto; /* Center and space out */
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    display: inline-flex; /* Use flex to align spinner and text */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 250px; /* Give it some base width */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Different status styles */
+#status.status-idle {
+    background-color: #e9ecef;
+    color: #495057;
+}
+#status.status-loading {
+    background-color: #cfe2ff; /* Light blue for loading */
+    color: #0a58ca;
+}
+#status.status-active {
+     background-color: #d1e7dd; /* Light green for active */
+     color: #146c43;
+}
+#status.status-processing {
+    background-color: #fff3cd; /* Light yellow for processing */
+    color: #664d03;
+}
+#status.status-success {
+    background-color: #d1e7dd; /* Light green for success */
+    color: #146c43;
+}
+#status.status-error {
+    background-color: #f8d7da; /* Light red for error */
+    color: #842029;
+}
+
+
+/* Spinner Animation */
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid currentColor; /* Use status text color */
+    border-top-color: transparent; /* Make top transparent for spin effect */
+    border-radius: 50%;
+    display: none; /* Hidden by default */
+    animation: spin 0.8s linear infinite;
+    opacity: 0.7;
+}
+
+/* Show spinner only when status has 'loading' or 'processing' class */
+#status.status-loading .spinner,
+#status.status-processing .spinner {
+    display: inline-block;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* Results Area Styling */
+#results {
+    background-color: #f8f9fa; /* Very light gray for results box */
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    text-align: left; /* Align text left within results */
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between; /* Label left, value right */
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #e0e0e0; /* Dashed separator */
+}
+.result-item:last-child {
+    border-bottom: none; /* No border on last item */
+}
+
+.result-label {
+    color: #495057;
+    font-weight: 500;
+}
+
+.result-value {
+    color: #1c1e21;
+    font-weight: 700; /* Make result value bold */
+    font-size: 1.1em;
+}
+
+/* === Added Rule for Performance Metrics === */
+/* Make performance metric values slightly less prominent */
+.performance-metric .result-value {
+    font-size: 1em;     /* Reset from 1.1em */
+    font-weight: 500;   /* Reset from 700 */
+}
+/* === End of Added Rule === */
+
+
+/* Responsive Adjustments (Optional simple example) */
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5rem 1rem;
+        margin: 1rem auto;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .media-container {
+        flex-direction: column; /* Stack video/canvas */
+        gap: 1rem;
+    }
+    #predictButton {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    .result-item {
+         flex-direction: column; /* Stack label/value */
+         align-items: center;
+         gap: 0.25rem;
+         padding: 0.75rem 0;
+    }
+     /* Adjust performance metric values on small screens if needed */
+    .performance-metric .result-value {
+        font-size: 0.95em; /* Optionally adjust further on small screens*/
+    }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Age & Gender Estimator</title> <!-- Changed title slightly -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet"> <!-- Added Google Font -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+</head>
+<body>
+
+    <!-- Main Container for Centering and Styling -->
+    <div class="container">
+
+        <h1>AI Age & Gender Estimator</h1>
+
+        <p class="instructions">Allow webcam access, position your face clearly, and press Predict.</p>
+
+        <!-- Webcam and Processed Frame Side-by-Side (on wider screens) -->
+        <div class="media-container">
+            <div class="media-item">
+                <h2>Live Webcam</h2>
+                <video id="webcamFeed" playsinline autoplay muted width="320" height="240"></video>
+            </div>
+            <div class="media-item">
+                <h2>Processed Frame</h2>
+                <canvas id="preprocessedPreviewCanvas" width="224" height="224"></canvas>
+            </div>
+        </div>
+
+        <!-- Prediction Button -->
+        <div class="button-container">
+             <button id="predictButton" disabled>
+                 <span class="button-icon">📸</span> <!-- Optional icon -->
+                 <span id="buttonText">Initializing...</span>
+             </button>
+        </div>
+
+
+        <!-- Status Area -->
+        <div id="status" class="status-idle"> <!-- Add class for styling states -->
+             <div class="spinner" id="spinner"></div> <!-- Spinner Element -->
+             <span id="statusText">Requesting camera access...</span> <!-- Text Element -->
+        </div>
+
+
+        <!-- Results Area -->
+        <h2>Results</h2>
+        <div id="results">
+            <div class="result-item">
+                <span class="result-label">Predicted Age:</span>
+                <span class="result-value" id="ageResult">-</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Predicted Gender:</span>
+                <span class="result-value" id="genderResult">-</span>
+            </div>
+            <!-- Added Performance Metrics -->
+            <div class="result-item performance-metric">
+                <span class="result-label">Model Load Time:</span>
+                <span class="result-value" id="loadTimeValue">-</span> <!-- ID matches JS -->
+            </div>
+             <div class="result-item performance-metric">
+                <span class="result-label">Inference Latency:</span>
+                <span class="result-value" id="latencyValue">-</span> <!-- ID matches JS -->
+            </div>
+        </div>    
+
+    </div> <!-- End Container -->
+
+    <script src="script.js" defer></script>
+
+</body>
+</html>
